@@ -160,6 +160,8 @@ Desta vez, optei por criar a função auxiliar `validar` dentro do bloco `where`
 
 A função `validar` adquiriu escopo de função local no *main*.
 
+É importante salientar que esse jeito vai um pouco contra o conceito de funções "puras", que caracterizam Haskell, dificultando a reutilização do código. Portanto, não é o jeito mais "adequado" manter uma função auxiliar dentro do main :: IO().
+
 ## Recursos desconhecidos presentes no código
 
 ### $
