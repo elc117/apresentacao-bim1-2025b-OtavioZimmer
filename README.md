@@ -187,7 +187,7 @@ digitToInt '9'  -- retorna 9</pre>
 Converte a string lida pelo usuário ("12345678909", por exemplo) em uma lista de inteiros: [1,2,3,4,5,6,7,8,9,0,9].
 
 **Observação**:
-Se você passar um caractere que não seja dígito, a função gera erro.
+se você passar um caractere que não seja dígito, a função gera erro.
 
 ### IO
 
@@ -215,15 +215,15 @@ main = do
 
 Aqui, linha tem tipo String e pode ser manipulada normalmente, enquanto a ação continua sendo de tipo IO ().
 
-### [10,9..]
+### Arithmetic Sequences
 
-[10,9..] em Haskell é uma sintaxe de lista por enumeração. Funciona da seguinte maneira: [start, next..end], gerando uma lista começando em start, com passo next-start, até chegar (ou passar) no end. Se o end é omitido, como em [10,9..], o Haskell entende que é para continuar decrementando indefinidamente.
+Arithmetic Sequences em Haskell são uma sintaxe de lista por enumeração. Funcionam da seguinte maneira: [start, next..end], gerando uma lista começando em start, com passo next-start, até chegar (ou passar) no end. Se o end é omitido, como em [10,9..], o Haskell entende que é para continuar decrementando indefinidamente.
 
 <pre>[10,9..]  -- gera [10,9,8,7,6,5,4,3,2,1,0,-1,...]</pre>
 
 No caso do código que valida o CPF, funciona bem com o `ZipWith`, porque zipWith vai combinar apenas o número de elementos necessários da outra lista (digits), então o fato de [10,9..] ser “infinitamente grande” não atrapalha.
 
-<pro>cpfValid :: [Int] -> Bool
+<pre>cpfValid :: [Int] -> Bool
 cpfValid cpf =
   let digits = take 9 cpf
       dv1 = cpfDV digits [10,9..]
@@ -232,19 +232,20 @@ cpfValid cpf =
 
 cpfDV :: [Int] -> [Int] -> Int
 cpfDV digits mults = if res < 2 then 0 else 11-res
-  where res = (sum $ zipWith (*) digits mults) `mod` 11</pro>
+  where res = (sum $ zipWith (*) digits mults) `mod` 11
+  </pre>
 
 ## Fontes:
-+ https://stackoverflow.com/questions/50804295/do-statement-under-a-where-clause
+- https://stackoverflow.com/questions/50804295/do-statement-under-a-where-clause
 
-+ https://www.haskell.org/tutorial/patterns.html
+- https://www.haskell.org/tutorial/patterns.html
 
-+ https://wiki.haskell.org/Let_vs._Where
+- https://wiki.haskell.org/Let_vs._Where
 
-+ https://wiki.haskell.org/$
+- https://wiki.haskell.org/$
 
-+ https://hackage.haskell.org/package/base-4.21.0.0/docs/Data-Char.html#v:digitToInt
+- https://hackage.haskell.org/package/base-4.21.0.0/docs/Data-Char.html#v:digitToInt
 
-+ https://www.haskell.org/tutorial/io.html
+- https://www.haskell.org/tutorial/io.html
 
-+ http://www.zvon.org/other/haskell/Outputsyntax/arithmeticQsequences_reference.html
+- http://www.zvon.org/other/haskell/Outputsyntax/arithmeticQsequences_reference.html
