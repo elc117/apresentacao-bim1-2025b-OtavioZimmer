@@ -2,7 +2,17 @@
 
 Esta tarefa consistia em estudar o código de validação de CPF, contido na aula 8, e reescrevê-lo trocando *let* por *where* e *where* por *let*. O *where* permite declarar variáveis e funções de apoio depois da expressão principal, enquanto o *let* define esses elementos antes da expressão onde serão usados. Para compreender o código, ele foi apresentado em duas linguagens: primeiro em C e, depois, em Haskell.
 
-## Versão em C
+## Componentes de um CPF
+
+Um CPF possui ao todo 11 dígitos, sendo os 2 últimos dígitos verificadores, calculados a partir dos anteriores. Exemplo: 529.982.247-25.
+
+## Cálculo dos dígitos verificadores do CPF
+
+Para calcular o primeiro dígito verificador, é necessário multiplicar cada um dos 9 primeiros dígitos por um valor multiplicador correspondente, que inicia em 10 e vai até 2 ([10,9...,2]). Depois, calcula-se o somatório das multiplicações e, após, o resto da divisão do somatório por 11. Por último, é necessário ajustar o dígito aplicando a condição `DV1 = if DV1 < 2 then 0 else 11-DV1`.
+
+Para calcular o segundo dígito verificador, é necessário multiplicar cada um dos 10 primeiros dígitos (o que inclui também o primeiro dígito verificador) por um valor multiplicador correspondente, que inicia em 11 e vai até 2 ([11,10...,2]). Depois, calcula-se o somatório das multiplicações e, após, o resto da divisão do somatório por 11. Por último, é necessário ajustar o dígito aplicando a condição `DV2 = if DV2 < 2 then 0 else 11-DV2`.
+
+## Código de validação de CPF em C
 <pre>// Desenvolva um programa que aceita e valida o CPF- Cadastro de Pessoa Física.
 // Copyright Prof. Omero Francisco Bertol, M.Sc.
 
@@ -47,7 +57,7 @@ void main() {
      printf("\nO CPF informado eh inválido.");
 }</pre>
 
-## Versão em Haskell
+## Código de validação de CPF em Haskell
 <pre>import Data.Char
 
 cpfValid :: [Int] -> Bool
@@ -134,7 +144,7 @@ cpfDV digits mults =
   let res = (sum $ zipWith (*) digits mults) `mod` 11
    in if res < 2 then 0 else 11-res
 
-main :: IO ()
+main :: IO()
 main = do
   putStrLn "Digite o CPF: "
   cpf <- getLine
@@ -232,8 +242,7 @@ cpfValid cpf =
 
 cpfDV :: [Int] -> [Int] -> Int
 cpfDV digits mults = if res < 2 then 0 else 11-res
-  where res = (sum $ zipWith (*) digits mults) `mod` 11
-  </pre>
+  where res = (sum $ zipWith (*) digits mults) `mod` 11</pre>
 
 ## Fontes:
 - https://stackoverflow.com/questions/50804295/do-statement-under-a-where-clause
